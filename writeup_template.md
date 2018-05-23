@@ -1,11 +1,5 @@
 # **Finding Lane Lines on the Road** 
 
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Finding Lane Lines on the Road**
 
 In this project, the goal is to detect the lane line in the road with openCV. Canny Edge Detection and Hough Transformation are used to detect the line segments in the image. Then the line segments are averaged with slope and intercept, then interpolated to only two lane lines of the road.
