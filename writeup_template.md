@@ -18,22 +18,29 @@ In this project, the goal is to detect the lane line in the road with openCV. Ca
 
 ### Reflection
 
-### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
+### 1. pipeline to detect the lane line
 The first part of the project is to get the interesting line segments with canny edge detection and hough line transformation, which is realized in 5 steps
-1. read the image and convert the corful image from RGB image to gray image.use the cvtColor in openCV to 
+1. read the image and convert the corful image from RGB image to gray image with cvtColor in openCV.
 ![alt text][image1]
-2. Gaussian smoothing in the 
+2. Gaussian smoothing of the gray image. 
 ![alt text][image2]
-3. use canny edge detection to detect th edges of the gray image
+3. use canny edge detection to detect line edges of the gray image.
 ![alt text][image3]
-4. select the interesting region in the image to get the lane lines. I choose a triangle region as interesting region. But it is affected by the installed position of the camera. one point is the bottom left point of the image, second is the bottom right point of the image.
+4. select the interesting region in the image to get the lane lines. I choose a triangle region as interesting region. But it is affected strongly by the installed position of the camera. one point is the bottom left point of the image, second is the bottom right point of the image. The third point is selected based on the not interesting lines can be excluded.
 ![alt text][image4]
-5. use Hough Transform to get the lines 
+5. use Hough Transform to get the line segments in the interesting region. In HoughLinesP there are five important parameters. As the line of the road is not always long, we cant select the min_line_len or max_line_gap to very large. 
+
+        rho = 1             # distance resolution in pixels of the Hough grid
+        theta = np.pi/180   # angular resolution in radians of the Hough grid
+        threshold = 10       # minimum number of votes (intersections in Hough grid cell)
+        min_line_len = 10   # minimum number of pixels making up a line
+        max_line_gap = 5    # maximum gap in pixels between connectable line segments
+    
 ![alt text][image5]
 
 With the pipeline the line segments in the road can be captured. Now the lane line of the driving car in full extent can be identified from the captured line segments with Hough Transform. 
 
-Not every line in the road is straight and clear. Therefore, At first, every selected line segment belongs to left lane or right lane, should be decided. For example, the criterien for selecting the left lane are: The slopes of the line segment should be in the range of -2 to -0.5; And the x coordinates of the end points of a line should be both in the left half part of the image. Then in order to get rid of the lines, which we dont really want, for example, the horizontal line, the deviation of the slope of every line is compared with the average of the slope. If the deviation is above the threshold, then it is concluded, that this line segment doesn't belong to the left lane. After that, the average of the slope and intercept of the line is calculated.
+Now the function drawline() is changed in order to get only two lane lines in the road. Not every line in the road is straight and clear. Therefore, At first, every selected line segment belongs to left lane or right lane, should be decided. For example, the criterien for selecting the left lane are: The slopes of the line segment should be in the range of -2 to -0.5; And the x coordinates of the end points of a line should be both in the left half part of the image. Then in order to get rid of the lines, which we dont really want, for example, the horizontal line, the deviation of the slope of every line is compared with the average of the slope. If the deviation is above the threshold, then it is concluded, that this line segment doesn't belong to the left lane. After that, the average of the slope and intercept of the line is calculated.
 
 
     #from http://jeffwen.com/2017/02/23/lane_finding. And some conditions are added for deciding the line belongs to left or    right lane.
@@ -78,12 +85,10 @@ Then the endpoints of the lane line, which we want to draw in the image, will be
 
 One short coming of the current pipeline is that the interesting area has big effect on the result. As I chose the triangle area, except the bottom left point and bottom right point of the image, the third point is somehow important for the calculation. If the interesting region includes many line segments, like the trees, isolation belt, which we are not interested in. 
 
-Another shortcomin is that, when the lane lines are under the sun light, the line segment can not be identified, which means, the pipeline can not work with high reliability in special circumstance.
-
+Another shortcomin is that, when the lane lines are under the sunlight, the line segment can not be identified, which means, the pipeline can not work with high reliability in special circumstance.
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
+A possible improvement would be to select the specific color range of the image. The lane lines are either yellow or white. However, I am not sure, if it is the same under special circumstance, for example, under the sunlight. 
 
-Another potential improvement could be to ...
