@@ -17,7 +17,7 @@ In this project, the goal is to detect the lane line in the road with openCV. Ca
 ### Reflection
 
 ### 1. pipeline to detect the lane line
-The first part of the project is to get the interesting line segments with canny edge detection and hough line transformation, which is realized in 5 steps
+The first part of the project is to get the interesting line segments with canny edge detection and hough line transformation, which is realized in 5 steps.
 
 1. read the image and convert the corful image from RGB image to gray image with cvtColor in openCV.
 
