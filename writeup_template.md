@@ -43,17 +43,11 @@ Not every line in the road is straight and clear. Therefore, At first, every sel
 
 #from http://jeffwen.com/2017/02/23/lane_finding. And some conditions are added for deciding the line belongs to left or right lane.
 def avg_lines(lines):
+
     x_CheckPoint = imshape[1]/2
     leftLines = np.empty([1,3])
     rightLines = np.empty([1,3])
-
-
-
-    #from http://jeffwen.com/2017/02/23/lane_finding. And some conditions are added for deciding the line belongs to left or right lane.
-def avg_lines(lines):
-    x_CheckPoint = imshape[1]/2
-    leftLines = np.empty([1,3])
-    rightLines = np.empty([1,3])
+    
     ## calculate slopes for each line to identify the positive and negative lines
     for line in lines:
         for x1,y1,x2,y2 in line:
