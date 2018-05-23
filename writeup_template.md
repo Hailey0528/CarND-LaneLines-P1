@@ -20,18 +20,23 @@ In this project, the goal is to detect the lane line in the road with openCV. Ca
 
 ### 1. pipeline to detect the lane line
 The first part of the project is to get the interesting line segments with canny edge detection and hough line transformation, which is realized in 5 steps
+
 1. read the image and convert the corful image from RGB image to gray image with cvtColor in openCV.
 
 ![alt text][image1]
+
 2. Gaussian smoothing of the gray image.
 
 ![alt text][image2]
+
 3. use canny edge detection to detect line edges of the gray image.
 
 ![alt text][image3]
+
 4. select the interesting region in the image to get the lane lines. I choose a triangle region as interesting region. But it is affected strongly by the installed position of the camera. one point is the bottom left point of the image, second is the bottom right point of the image. The third point is selected based on the not interesting lines can be excluded.
 
 ![alt text][image4]
+
 5. use Hough Transform to get the line segments in the interesting region. In HoughLinesP there are five important parameters. As the line of the road is not always long, we cant select the min_line_len or max_line_gap to very large. 
 
         rho = 1             # distance resolution in pixels of the Hough grid
