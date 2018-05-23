@@ -8,9 +8,8 @@
 
 **Finding Lane Lines on the Road**
 
-In this project, the goal is to detect the lane with openCV.
-* Make a pipeline that finds lane lines on the road
-* Reflect on your work in a written report
+In this project, the goal is to detect the lane line in the road with openCV. Canny Edge Detection and Hough Transformation are used to detect the line segments in the image. Then the line segments are averaged with slope and intercept, then interpolated to only two lane lines of the road.
+
 
 
 [//]: # (Image References)
@@ -39,7 +38,9 @@ The first part of the project is to get the interesting line segments with canny
 ![alt text][image5]
 
 With the pipeline the line segments in the road can be captured. Now the lane line of the driving car in full extent can be identified from the captured line segments with Hough Transform. 
+
 Not every line in the road is straight and clear. Therefore, At first, every selected line segment belongs to left lane or right lane, should be decided. For example, the criterien for selecting the left lane are: The slopes of the line segment should be in the range of -2 to -0.5; And the x coordinates of the end points of a line should be both in the left half part of the image. Then in order to get rid of the lines, which we dont really want, for example, the horizontal line, the deviation of the slope of every line is compared with the average of the slope. If the deviation is above the threshold, then it is concluded, that this line segment doesn't belong to the left lane. After that, the average of the slope and intercept of the line is calculated.
+
 
     #from http://jeffwen.com/2017/02/23/lane_finding. And some conditions are added for deciding the line belongs to left or    right lane.
     def avg_lines(lines):
@@ -67,14 +68,16 @@ Not every line in the road is straight and clear. Therefore, At first, every sel
         rightLane = np.dot(rightLines[1:,2],rightLines[1:,:2])/np.sum(rightLines[1:,2]) if len(rightLines[1:,2]) > 0 else None
 
         return leftLane, rightLane
-    
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
-in order to find the line segments in the image. 
+ 
+Then the endpoints of the lane line, which we want to draw in the image, will be calculated with Function Endpoints with the calculated slope and intercept.
 
-In order to draw a single line on the left and right lanes, 
-I modified the draw_lines() function by ...
-
-
+    def Endpoints(y1, y2, line):
+        if line is None:
+            return None
+        slope, intercept = line
+        x1 = int((y1-intercept)/slope)
+        x2 = int((y2-intercept)/slope)
+        return [[x1, y1, x2, y2]] 
 
 
 ### 2. Identify potential shortcomings with your current pipeline
