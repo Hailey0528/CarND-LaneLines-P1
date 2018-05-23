@@ -1,7 +1,5 @@
 # **Finding Lane Lines on the Road** 
 
-**Finding Lane Lines on the Road**
-
 In this project, the goal is to detect the lane line in the road with openCV. Canny Edge Detection and Hough Transformation are used to detect the line segments in the image. Then the line segments are averaged with slope and intercept, then interpolated to only two lane lines of the road.
 
 
