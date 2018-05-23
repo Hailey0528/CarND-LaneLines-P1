@@ -36,7 +36,7 @@ The first part of the project is to get the interesting line segments with canny
 4. select the interesting region in the image to get the lane lines
 ![alt text][image4]
 5. use hough transform to get the lines 
-![alt text][image5]
+![alt text][image5]![alt text][image5]
 My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
 in order to find the line segments in the image. 
 
