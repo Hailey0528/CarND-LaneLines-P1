@@ -35,13 +35,13 @@ The first part of the project is to get the interesting line segments with canny
 
 ![alt text][image4]
 
-5. use Hough Transform to get the line segments in the interesting region. In HoughLinesP there are five important parameters. As the line of the road is not always long, we cant select the min_line_len or max_line_gap to very large. 
+5. use Hough Transform to get the line segments in the interesting region. In HoughLinesP there are five important parameters.  
 
         rho = 1             # distance resolution in pixels of the Hough grid
         theta = np.pi/180   # angular resolution in radians of the Hough grid
-        threshold = 10       # minimum number of votes (intersections in Hough grid cell)
-        min_line_len = 10   # minimum number of pixels making up a line
-        max_line_gap = 5    # maximum gap in pixels between connectable line segments
+        threshold = 20       # minimum number of votes (intersections in Hough grid cell)
+        min_line_len = 100   # minimum number of pixels making up a line
+        max_line_gap = 100    # maximum gap in pixels between connectable line segments
     
 ![alt text][image5]
 
